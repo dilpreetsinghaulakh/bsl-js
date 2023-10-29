@@ -40,10 +40,24 @@ class Tree {
         }
         return null;
     }
+
+    prettyPrint(node = this.root, prefix = "", isLeft = true) {
+        if (node === null) {
+            return;
+        }
+        if (node.right !== null) {
+            this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        }
+        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+        if (node.left !== null) {
+            this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        }
+    };
 }
 
 let tree = new Tree();
 let array = [11, 52, 39, 44, 85, 87, 38, 29, 10];
 tree.root = tree.buildTree(array);
 
+tree.prettyPrint();
 
