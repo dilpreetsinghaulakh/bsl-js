@@ -30,15 +30,32 @@ class Tree {
                     this.find(data, current.right);
     }
 
+    insert(data, current = this.root) {
+        if (data < current.data) {
+            if (current.left === null) {
+                current.left = new Node(data);
+            } else {
+                this.insert(data, current.left);
+            }
+        } else if (data > current.data) {
+            if (current.right === null) {
+                current.right = new Node(data);
+            } else {
+                this.insert(data, current.right);
+            }
+        }
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
-        if (node === null) return null;
+        if (node === null) return
 
-        const childPrefix = `${prefix}${isLeft ? '│   ' : '    '}`;
-        const currentPrefix = `${prefix}${isLeft ? '└── ' : '┌── '}`;
-
-        if (node.right) this.prettyPrint(node.right, childPrefix, false);
-        console.log(`${currentPrefix}${node.data}`);
-        if (node.left) this.prettyPrint(node.left, childPrefix, true);
+        if (node.right !== null) {
+            this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        }
+        console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+        if (node.left !== null) {
+            this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        }
     }
 }
 
@@ -47,5 +64,7 @@ let array = [11, 52, 39, 44, 85, 87, 38, 29, 10];
 tree.root = tree.buildTree(array);
 
 tree.prettyPrint();
-// console.log(tree.find(11));
+console.log(tree.find(44));
+tree.insert(42);
+tree.prettyPrint();
 
