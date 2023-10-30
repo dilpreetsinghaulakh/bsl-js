@@ -46,6 +46,44 @@ class Tree {
         }
     }
 
+    findMin(current = this.root) {
+        if (current.left === null) {
+            return current;
+        } else {
+            return this.findMin(current.left);
+        }
+    }
+
+    findMax(current = this.root) {
+        if (current.right === null) {
+            return current;
+        } else {
+            return this.findMax(current.right);
+        }
+    }
+
+    delete(data, current = this.root) {
+        if (current === null) return null;
+        if (data < current.data) {
+            current.left = this.delete(data, current.left);
+        } else if (data > current.data) {
+            current.right = this.delete(data, current.right);
+        } else {
+            if (current.left === null && current.right === null) {
+                return null;
+            } else if (current.left === null) {
+                return current.right;
+            } else if (current.right === null) {
+                return current.left;
+            } else {
+                let temp = this.findMin(current.right);
+                current.data = temp.data;
+                current.right = this.delete(temp.data, current.right);
+            }
+        }
+        return current;
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) return
 
@@ -66,5 +104,6 @@ tree.root = tree.buildTree(array);
 tree.prettyPrint();
 console.log(tree.find(44));
 tree.insert(42);
+tree.delete(52);
 tree.prettyPrint();
 
