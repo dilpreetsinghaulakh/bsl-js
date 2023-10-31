@@ -170,22 +170,26 @@ class Tree {
 }
 
 let tree = new Tree();
-let array = [11, 52, 39, 44, 85, 87, 38, 29, 10];
+let array = [];
+for (let i = 0; i < 100; i++) {
+    array.push(Math.floor(Math.random() * 1000));
+}
 tree.root = tree.buildTree(array);
 
-// tree.prettyPrint();
-// console.log(tree.find(44));
-// tree.delete(52);
-// console.log(tree.findMax());
-// console.log(tree.findMin());
-// console.log(tree.inOrder())
-// console.log(tree.preOrder())
-// console.log(tree.postOrder())
-// console.log(tree.levelOrder())
-// console.log(tree.height());
-// console.log(tree.depth(tree.find(29)));
-tree.insert(88)
+tree.prettyPrint();
 console.log(tree.isBalanced());
-tree.prettyPrint();
+console.log(tree.inOrder());
+console.log(tree.preOrder());
+console.log(tree.postOrder());
+console.log(tree.levelOrder());
+
+for(let i = 0; i < 100; i++){
+    tree.insert(Math.floor(Math.random() * 1000));
+}
+console.log(tree.isBalanced());
 tree.rebalance();
-tree.prettyPrint();
+console.log(tree.isBalanced());
+console.log(tree.inOrder());
+console.log(tree.preOrder());
+console.log(tree.postOrder());
+console.log(tree.levelOrder());
