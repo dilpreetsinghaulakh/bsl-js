@@ -24,7 +24,7 @@ class Tree {
     }
 
     find(data, current = this.root) {
-        return null ? null :
+        return current ? null :
             current.data === data ? current :
                 data < current.data ? this.find(data, current.left) :
                     this.find(data, current.right);
@@ -84,6 +84,33 @@ class Tree {
         return current;
     }
 
+    inOrder(current = this.root, elements = []) {
+        if (current === null) return null;
+
+        this.inOrder(current.left, elements);
+        elements.push(current.data);
+        this.inOrder(current.right, elements);
+        return elements;
+    }
+
+    preOrder(current = this.root, elements = []) {
+        if (current === null) return null;
+
+        elements.push(current.data);
+        this.preOrder(current.left, elements);
+        this.preOrder(current.right, elements);
+        return elements;
+    }
+
+    postOrder(current = this.root, elements = []) {
+        if (current === null) return null;
+
+        this.postOrder(current.left, elements);
+        this.postOrder(current.right, elements);
+        elements.push(current.data);
+        return elements;
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) return
 
@@ -101,9 +128,13 @@ let tree = new Tree();
 let array = [11, 52, 39, 44, 85, 87, 38, 29, 10];
 tree.root = tree.buildTree(array);
 
-tree.prettyPrint();
-console.log(tree.find(44));
-tree.insert(42);
-tree.delete(52);
+// tree.prettyPrint();
+// console.log(tree.find(44));
+// tree.delete(52);
+// console.log(tree.findMax());
+// console.log(tree.findMin());
+console.log(tree.inOrder())
+console.log(tree.preOrder())
+console.log(tree.postOrder())
 tree.prettyPrint();
 
