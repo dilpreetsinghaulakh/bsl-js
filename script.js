@@ -143,6 +143,13 @@ class Tree {
         return depthCount;
     }
 
+    isBalanced(current = this.root) {
+        if (current === null) return true;
+        let leftHeight = this.height(current.left);
+        let rightHeight = this.height(current.right);
+        return Math.abs(leftHeight - rightHeight) <= 1 && this.isBalanced(current.left) && this.isBalanced(current.right);
+    }
+
     rebalance() {
         let array = this.inOrder();
         this.root = this.buildTree(array);
@@ -177,5 +184,8 @@ tree.root = tree.buildTree(array);
 // console.log(tree.levelOrder())
 // console.log(tree.height());
 // console.log(tree.depth(tree.find(29)));
+tree.insert(88)
+console.log(tree.isBalanced());
+tree.prettyPrint();
 tree.rebalance();
 tree.prettyPrint();
