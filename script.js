@@ -111,6 +111,20 @@ class Tree {
         return elements;
     }
 
+    levelOrder(queue = [this.root], elements = [], callback) {
+        if (queue.length === 0) {
+            if (callback) callback(elements);
+            return elements;
+        }
+
+        let temp = queue[0]
+        queue.splice(0, 1)
+        elements.push(temp.data)
+        if (temp.left) queue.push(temp.left)
+        if (temp.right) queue.push(temp.right)
+        return this.levelOrder(queue, elements)
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) return
 
@@ -133,8 +147,8 @@ tree.root = tree.buildTree(array);
 // tree.delete(52);
 // console.log(tree.findMax());
 // console.log(tree.findMin());
-console.log(tree.inOrder())
-console.log(tree.preOrder())
-console.log(tree.postOrder())
+// console.log(tree.inOrder())
+// console.log(tree.preOrder())
+// console.log(tree.postOrder())
+console.log(tree.levelOrder())
 tree.prettyPrint();
-
