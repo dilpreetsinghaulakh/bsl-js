@@ -143,6 +143,12 @@ class Tree {
         return depthCount;
     }
 
+    rebalance() {
+        let array = this.inOrder();
+        this.root = this.buildTree(array);
+        return this.root;
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) return
 
@@ -169,6 +175,7 @@ tree.root = tree.buildTree(array);
 // console.log(tree.preOrder())
 // console.log(tree.postOrder())
 // console.log(tree.levelOrder())
-console.log(tree.height());
-console.log(tree.depth(tree.find(29)));
+// console.log(tree.height());
+// console.log(tree.depth(tree.find(29)));
+tree.rebalance();
 tree.prettyPrint();
