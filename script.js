@@ -24,7 +24,7 @@ class Tree {
     }
 
     find(data, current = this.root) {
-        return current ? null :
+        return null ? current :
             current.data === data ? current :
                 data < current.data ? this.find(data, current.left) :
                     this.find(data, current.right);
@@ -125,6 +125,24 @@ class Tree {
         return this.levelOrder(queue, elements)
     }
 
+    height(current = this.root) {
+        if (current === null) return 0;
+        return Math.max(this.height(current.left), this.height(current.right) + 1);
+    }
+
+    depth(current = this.root, queue = [current], depthCount = 0) {
+        if (queue === null || current === null) return 0;
+
+        if (queue.length > 0){
+            let temp = queue[0];
+            queue.splice(0, 1);
+            if (temp.left) queue.push(temp.left);
+            if (temp.right) queue.push(temp.right);
+            return this.depth(current, queue, depthCount + 1);
+        }
+        return depthCount;
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) return
 
@@ -150,5 +168,7 @@ tree.root = tree.buildTree(array);
 // console.log(tree.inOrder())
 // console.log(tree.preOrder())
 // console.log(tree.postOrder())
-console.log(tree.levelOrder())
+// console.log(tree.levelOrder())
+console.log(tree.height());
+console.log(tree.depth(tree.find(29)));
 tree.prettyPrint();
